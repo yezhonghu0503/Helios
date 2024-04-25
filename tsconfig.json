@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"outDir": "./dist", // 指定输出目录为 ./dist
 		"module": "Node16",
 		"target": "ES2022",
 		"lib": [
