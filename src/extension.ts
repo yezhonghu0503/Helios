@@ -25,13 +25,13 @@ class DependenciesProvider implements vscode.WebviewViewProvider {
       extensionUri,
       "src",
       "assets",
-      "index-BGBtpaSC.js"
+      "index-C2hl2N81.js"
     );
     const cssUri = vscode.Uri.joinPath(
       extensionUri,
       "src",
       "assets",
-      "index-DiwrgTda.css"
+      "index-Dw3BKVY7.css"
     );
     // 设置 WebviewView 的 HTML 内容，可以在这里指定要加载的网页内容
     webviewView.webview.html = `
@@ -80,6 +80,19 @@ export function activate(context: vscode.ExtensionContext) {
     "editor",
     new DependenciesProvider(context)
   );
+  let disposable = vscode.window.onDidChangeTextEditorSelection((event) => {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+      const position = editor.selection.active;
+      const document = editor.document;
+      const hoveredCharacter = document.getText(
+        new vscode.Range(position, position.translate(0, 1))
+      );
+      console.log(`Hovered character: ${hoveredCharacter}`);
+    }
+  });
+
+  context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated
