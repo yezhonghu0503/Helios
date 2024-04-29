@@ -25,13 +25,13 @@ class DependenciesProvider implements vscode.WebviewViewProvider {
       extensionUri,
       "src",
       "assets",
-      "index-C2hl2N81.js"
+      "index-BOwuxVBA.js"
     );
     const cssUri = vscode.Uri.joinPath(
       extensionUri,
       "src",
       "assets",
-      "index-Dw3BKVY7.css"
+      "index-ZFf90ag7.css"
     );
     // 设置 WebviewView 的 HTML 内容，可以在这里指定要加载的网页内容
     webviewView.webview.html = `
@@ -84,16 +84,67 @@ export function activate(context: vscode.ExtensionContext) {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
       const position = editor.selection.active;
-      const document = editor.document;
-      const hoveredCharacter = document.getText(
-        new vscode.Range(position, position.translate(0, 1))
-      );
-      console.log(`Hovered character: ${hoveredCharacter}`);
+      const classMatch = getClassFromPosition(editor.document, position);
+      if (classMatch) {
+        vscode.window.showInformationMessage(`Style string: ${classMatch}`);
+      }
     }
   });
 
   context.subscriptions.push(disposable);
 }
 
+function getClassFromPosition(
+  document: vscode.TextDocument,
+  position: vscode.Position
+): string | null {
+  const lineText = document.lineAt(position.line).text;
+  const classMatch = getClassFromLine(lineText, position.character);
+  if (classMatch) {
+    return classMatch;
+  }
+
+  // 从当前行向上搜索
+  // for (let i = position.line - 1; i >= 0; i--) {
+  //   const line = document.lineAt(i);
+  //   const classMatchUp = getClassFromLine(line.text, line.text.length);
+  //   if (classMatchUp) {
+  //     return classMatchUp;
+  //   }
+  // }
+
+  // 从当前行向下搜索
+  for (let i = position.line + 1; i < document.lineCount; i++) {
+    const line = document.lineAt(i);
+    console.log(line);
+    const classMatchDown = getClassFromLine(line.text, 0);
+    if (classMatchDown) {
+      return classMatchDown;
+    }
+  }
+
+  return null;
+}
+
+function getClassFromLine(
+  lineText: string,
+  cursorPosition: number
+): string | null {
+  // 从光标位置开始向右搜索，直到找到class属性
+  let classIndex = lineText.indexOf('class="', cursorPosition);
+  if (classIndex !== -1) {
+    // 找到class属性后，继续向右搜索，直到找到样式字符串的起始位置
+    const startQuoteIndex = lineText.indexOf('"', classIndex + 7);
+    const endQuoteIndex = lineText.indexOf('"', startQuoteIndex + 1);
+    if (startQuoteIndex !== -1 && endQuoteIndex !== -1) {
+      const styleString = lineText.substring(
+        startQuoteIndex + 1,
+        endQuoteIndex
+      );
+      return styleString;
+    }
+  }
+  return null;
+}
 // This method is called when your extension is deactivated
 export function deactivate() {}
