@@ -98,12 +98,6 @@ function getClassFromPosition(
   document: vscode.TextDocument,
   position: vscode.Position
 ): string | null {
-  const lineText = document.lineAt(position.line).text;
-  const classMatch = getClassFromLine(lineText, position.character);
-  if (classMatch) {
-    return classMatch;
-  }
-
   // 从当前行向上搜索
   // for (let i = position.line - 1; i >= 0; i--) {
   //   const line = document.lineAt(i);
@@ -114,37 +108,27 @@ function getClassFromPosition(
   // }
 
   // 从当前行向下搜索
-  for (let i = position.line + 1; i < document.lineCount; i++) {
-    const line = document.lineAt(i);
-    console.log(line);
-    const classMatchDown = getClassFromLine(line.text, 0);
-    if (classMatchDown) {
-      return classMatchDown;
-    }
+  const classRegExp = /class\b|className/g;
+  let i = position.line;
+  const currentLineText = document.lineAt(i).text;
+  if (!classRegExp.test(currentLineText)) {
+    return null;
   }
-
+  let classIndex = currentLineText.indexOf('class="');
+  // TODO 需要整理一下逻辑：大概思路是以当前行的class="索引开始，搜索每一行是否有结束class的"/字符
+  // TODO 同时把符合的字符放到res（临时命名）中去，构建完整的样式字符串
+  const res = currentLineText.slice(
+    classIndex + 7,
+    !~currentLineText.slice(classIndex + 7).indexOf('"')
+      ? currentLineText.length
+      : currentLineText.slice(classIndex + 7).indexOf('"')
+  );
+  while (res[res.length - 1] !== '"') {}
   return null;
 }
 
-function getClassFromLine(
-  lineText: string,
-  cursorPosition: number
-): string | null {
-  // 从光标位置开始向右搜索，直到找到class属性
-  let classIndex = lineText.indexOf('class="', cursorPosition);
-  if (classIndex !== -1) {
-    // 找到class属性后，继续向右搜索，直到找到样式字符串的起始位置
-    const startQuoteIndex = lineText.indexOf('"', classIndex + 7);
-    const endQuoteIndex = lineText.indexOf('"', startQuoteIndex + 1);
-    if (startQuoteIndex !== -1 && endQuoteIndex !== -1) {
-      const styleString = lineText.substring(
-        startQuoteIndex + 1,
-        endQuoteIndex
-      );
-      return styleString;
-    }
-  }
-  return null;
+function getClassFromLine(textIndex: number, res: string): boolean | null {
+  return false;
 }
 // This method is called when your extension is deactivated
 export function deactivate() {}
