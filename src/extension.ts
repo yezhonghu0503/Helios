@@ -117,18 +117,26 @@ function getClassFromPosition(
   let classIndex = currentLineText.indexOf('class="');
   // TODO 需要整理一下逻辑：大概思路是以当前行的class="索引开始，搜索每一行是否有结束class的"/字符
   // TODO 同时把符合的字符放到res（临时命名）中去，构建完整的样式字符串
-  const res = currentLineText.slice(
+  let res = currentLineText.slice(
     classIndex + 7,
     !~currentLineText.slice(classIndex + 7).indexOf('"')
       ? currentLineText.length
-      : currentLineText.slice(classIndex + 7).indexOf('"')
+      : currentLineText.slice(classIndex + 7).indexOf('"') + classIndex + 7
   );
-  while (res[res.length - 1] !== '"') {}
+  // while (res[res.length - 1] !== '"') {
+  //   console.log(res);
+
+  //   res = getClassFromLine(document.lineAt(i + 1).text, res);
+  // }
+  console.log(currentLineText);
   return null;
 }
 
-function getClassFromLine(textIndex: number, res: string): boolean | null {
-  return false;
+function getClassFromLine(lineText: string, rawString: string): string {
+  return `${rawString} ${lineText.slice(
+    0,
+    !~lineText.indexOf('"') ? lineText.length : lineText.indexOf("")
+  )}`;
 }
 // This method is called when your extension is deactivated
 export function deactivate() {}
