@@ -17,6 +17,9 @@ class DependenciesProvider implements vscode.WebviewViewProvider {
       enableScripts: true,
       localResourceRoots: [this.context.extensionUri],
     };
+    webviewView.webview.postMessage(
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    );
     // 获取插件根目录路径
     const extensionUri = this.context.extensionUri;
 
@@ -25,7 +28,7 @@ class DependenciesProvider implements vscode.WebviewViewProvider {
       extensionUri,
       "src",
       "assets",
-      "index-BOwuxVBA.js"
+      "index-DCHRS9XL.js"
     );
     const cssUri = vscode.Uri.joinPath(
       extensionUri,
@@ -52,34 +55,16 @@ class DependenciesProvider implements vscode.WebviewViewProvider {
   </body>
 </html>
     `;
-    //     webviewView.webview.html = `
-    //     <!doctype html>
-    // <html lang="en">
-    //   <head>
-    //     <meta charset="UTF-8" />
-    //     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    //     <title>Vite + React + TS</title>
-    //     <script type="module" crossorigin src="${webviewView.webview.asWebviewUri(
-    //       jsUri
-    //     )}"></script>
-    //     <link rel="stylesheet" crossorigin href="${webviewView.webview.asWebviewUri(
-    //       cssUri
-    //     )}">
-    //   </head>
-    //   <body>
-    //     <div id="root"></div>
-    //   </body>
-    // </html>
-    //     `;
   }
 }
 
 export function activate(context: vscode.ExtensionContext) {
   // vscode.window.registerTreeDataProvider("epubTree", new EpubTreeProvider());
-  vscode.window.registerWebviewViewProvider(
+  const editor = vscode.window.registerWebviewViewProvider(
     "editor",
     new DependenciesProvider(context)
   );
+  // editor.webview
   let disposable = vscode.window.onDidChangeTextEditorSelection((event) => {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
@@ -98,45 +83,35 @@ function getClassFromPosition(
   document: vscode.TextDocument,
   position: vscode.Position
 ): string | null {
-  // 从当前行向上搜索
-  // for (let i = position.line - 1; i >= 0; i--) {
-  //   const line = document.lineAt(i);
-  //   const classMatchUp = getClassFromLine(line.text, line.text.length);
-  //   if (classMatchUp) {
-  //     return classMatchUp;
-  //   }
-  // }
-
   // 从当前行向下搜索
   const classRegExp = /class\b|className/g;
-  let i = position.line;
-  const currentLineText = document.lineAt(i).text;
+  let currentLine = position.line;
+  const currentLineText = document.lineAt(currentLine).text;
   if (!classRegExp.test(currentLineText)) {
     return null;
   }
-  let classIndex = currentLineText.indexOf('class="');
-  // TODO 需要整理一下逻辑：大概思路是以当前行的class="索引开始，搜索每一行是否有结束class的"/字符
-  // TODO 同时把符合的字符放到res（临时命名）中去，构建完整的样式字符串
-  let res = currentLineText.slice(
-    classIndex + 7,
-    !~currentLineText.slice(classIndex + 7).indexOf('"')
-      ? currentLineText.length
-      : currentLineText.slice(classIndex + 7).indexOf('"') + classIndex + 7
-  );
-  // while (res[res.length - 1] !== '"') {
-  //   console.log(res);
-
-  //   res = getClassFromLine(document.lineAt(i + 1).text, res);
-  // }
-  console.log(currentLineText);
-  return null;
+  let styleString = currentLineText.slice(currentLineText.indexOf('"') + 1);
+  styleString = ~styleString.indexOf('"')
+    ? styleString.slice(0, styleString.indexOf('"'))
+    : `${styleString} ${getClassFromLine(
+        document,
+        currentLine + 1,
+        ""
+      ).trim()}`;
+  return styleString;
 }
 
-function getClassFromLine(lineText: string, rawString: string): string {
-  return `${rawString} ${lineText.slice(
-    0,
-    !~lineText.indexOf('"') ? lineText.length : lineText.indexOf("")
-  )}`;
+function getClassFromLine(
+  document: vscode.TextDocument,
+  lineNumber: number,
+  rawString: string
+): string {
+  let lineText = document.lineAt(lineNumber).text;
+  if (~lineText.indexOf('"')) {
+    return `${rawString} ${lineText.slice(0, lineText.indexOf('"')).trim()}`;
+  }
+  rawString += `${lineText.slice(0, lineText.length).trim()}`;
+  return getClassFromLine(document, lineNumber + 1, rawString);
 }
 // This method is called when your extension is deactivated
 export function deactivate() {}
