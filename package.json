@@ -61,5 +61,9 @@
     "typescript": "^5.3.3",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "style-to-object": "^1.0.6",
+    "tailwind-to-object": "^0.0.2"
   }
 }
