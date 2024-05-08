@@ -508,7 +508,7 @@ nl.Fragment = xc;
 nl.jsx = ns;
 nl.jsxs = ns;
 Qi.exports = nl;
-var D = Qi.exports,
+var j = Qi.exports,
   Kl = {},
   ts = { exports: {} },
   ge = {},
@@ -3255,7 +3255,7 @@ function Js(e, n) {
     throw ((e = su), (Or = !1), (su = null), e);
   }
 }
-function M(e, n) {
+function D(e, n) {
   var t = n[gu];
   t === void 0 && (t = n[gu] = new Set());
   var r = e + "__bubble";
@@ -3830,7 +3830,7 @@ function mn(e) {
 function I(e) {
   0 > $n || ((e.current = wu[$n]), (wu[$n] = null), $n--);
 }
-function j(e, n) {
+function M(e, n) {
   $n++, (wu[$n] = e.current), (e.current = n);
 }
 var dn = {},
@@ -3869,7 +3869,7 @@ function mi(e, n, t) {
   if (le.current !== dn) {
     throw Error(y(168));
   }
-  j(le, n), j(fe, t);
+  M(le, n), M(fe, t);
 }
 function bs(e, n, t) {
   var r = e.stateNode;
@@ -3889,8 +3889,8 @@ function Vr(e) {
     (e =
       ((e = e.stateNode) && e.__reactInternalMemoizedMergedChildContext) || dn),
     (_n = le.current),
-    j(le, e),
-    j(fe, fe.current),
+    M(le, e),
+    M(fe, fe.current),
     !0
   );
 }
@@ -3904,9 +3904,9 @@ function vi(e, n, t) {
       (r.__reactInternalMemoizedMergedChildContext = e),
       I(fe),
       I(le),
-      j(le, e))
+      M(le, e))
     : I(fe),
-    j(fe, t);
+    M(fe, t);
 }
 var Ve = null,
   il = !1,
@@ -4832,7 +4832,7 @@ function En(e) {
   return e;
 }
 function mo(e, n) {
-  switch ((j(Ht, n), j(Bt, e), j(Ue, qt), (e = n.nodeType), e)) {
+  switch ((M(Ht, n), M(Bt, e), M(Ue, qt), (e = n.nodeType), e)) {
     case 9:
     case 11:
       n = (n = n.documentElement) ? n.namespaceURI : tu(null, "");
@@ -4843,7 +4843,7 @@ function mo(e, n) {
         (e = e.tagName),
         (n = tu(n, e));
   }
-  I(Ue), j(Ue, n);
+  I(Ue), M(Ue, n);
 }
 function nt() {
   I(Ue), I(Bt), I(Ht);
@@ -4852,7 +4852,7 @@ function sa(e) {
   En(Ht.current);
   var n = En(Ue.current),
     t = tu(n, e.type);
-  n !== t && (j(Bt, e), j(Ue, t));
+  n !== t && (M(Bt, e), M(Ue, t));
 }
 function vo(e) {
   Bt.current === e && (I(Ue), I(Bt));
@@ -5809,7 +5809,7 @@ function Oa(e, n, t) {
   if (r.mode === "hidden") {
     if (!(n.mode & 1)) {
       (n.memoizedState = { baseLanes: 0, cachePool: null, transitions: null }),
-        j(Wn, me),
+        M(Wn, me),
         (me |= t);
     } else {
       if (!(t & 1073741824)) {
@@ -5822,19 +5822,19 @@ function Oa(e, n, t) {
             transitions: null,
           }),
           (n.updateQueue = null),
-          j(Wn, me),
+          M(Wn, me),
           (me |= e),
           null
         );
       }
       (n.memoizedState = { baseLanes: 0, cachePool: null, transitions: null }),
         (r = u !== null ? u.baseLanes : t),
-        j(Wn, me),
+        M(Wn, me),
         (me |= r);
     }
   } else {
     u !== null ? ((r = u.baseLanes | t), (n.memoizedState = null)) : (r = t),
-      j(Wn, me),
+      M(Wn, me),
       (me |= r);
   }
   return ue(e, n, l, t), n.child;
@@ -6015,7 +6015,7 @@ function Da(e, n, t) {
     i
       ? ((u = !0), (n.flags &= -129))
       : (e === null || e.memoizedState !== null) && (l |= 1),
-    j($, l & 1),
+    M($, l & 1),
     e === null)
   ) {
     return (
@@ -6265,7 +6265,7 @@ function Ia(e, n, t) {
     }
     r &= 1;
   }
-  if ((j($, r), !(n.mode & 1))) {
+  if ((M($, r), !(n.mode & 1))) {
     n.memoizedState = null;
   } else {
     switch (l) {
@@ -6345,19 +6345,19 @@ function cd(e, n, t) {
     case 10:
       var r = n.type._context,
         l = n.memoizedProps.value;
-      j(Hr, r._currentValue), (r._currentValue = l);
+      M(Hr, r._currentValue), (r._currentValue = l);
       break;
     case 13:
       if (((r = n.memoizedState), r !== null)) {
         return r.dehydrated !== null
-          ? (j($, $.current & 1), (n.flags |= 128), null)
+          ? (M($, $.current & 1), (n.flags |= 128), null)
           : t & n.child.childLanes
           ? Da(e, n, t)
-          : (j($, $.current & 1),
+          : (M($, $.current & 1),
             (e = Ye(e, n, t)),
             e !== null ? e.sibling : null);
       }
-      j($, $.current & 1);
+      M($, $.current & 1);
       break;
     case 19:
       if (((r = (t & n.childLanes) !== 0), e.flags & 128)) {
@@ -6370,7 +6370,7 @@ function cd(e, n, t) {
         ((l = n.memoizedState),
         l !== null &&
           ((l.rendering = null), (l.tail = null), (l.lastEffect = null)),
-        j($, $.current),
+        M($, $.current),
         r)
       ) {
         break;
@@ -6480,7 +6480,7 @@ Ua = function (e, n, t, r) {
             : c !== "suppressContentEditableWarning" &&
               c !== "suppressHydrationWarning" &&
               (Rt.hasOwnProperty(c)
-                ? (s != null && c === "onScroll" && M("scroll", e),
+                ? (s != null && c === "onScroll" && D("scroll", e),
                   u || i === s || (u = []))
                 : (u = u || []).push(c, s));
         }
@@ -6593,39 +6593,39 @@ function fd(e, n, t) {
           var u = n.memoizedProps;
           switch (((r[Ie] = n), (r[At] = u), (e = (n.mode & 1) !== 0), t)) {
             case "dialog":
-              M("cancel", r), M("close", r);
+              D("cancel", r), D("close", r);
               break;
             case "iframe":
             case "object":
             case "embed":
-              M("load", r);
+              D("load", r);
               break;
             case "video":
             case "audio":
               for (l = 0; l < St.length; l++) {
-                M(St[l], r);
+                D(St[l], r);
               }
               break;
             case "source":
-              M("error", r);
+              D("error", r);
               break;
             case "img":
             case "image":
             case "link":
-              M("error", r), M("load", r);
+              D("error", r), D("load", r);
               break;
             case "details":
-              M("toggle", r);
+              D("toggle", r);
               break;
             case "input":
-              Ao(r, u), M("invalid", r);
+              Ao(r, u), D("invalid", r);
               break;
             case "select":
               (r._wrapperState = { wasMultiple: !!u.multiple }),
-                M("invalid", r);
+                D("invalid", r);
               break;
             case "textarea":
-              Ho(r, u), M("invalid", r);
+              Ho(r, u), D("invalid", r);
           }
           ru(t, u), (l = null);
           for (var o in u) {
@@ -6645,7 +6645,7 @@ function fd(e, n, t) {
                 : Rt.hasOwnProperty(o) &&
                   i != null &&
                   o === "onScroll" &&
-                  M("scroll", r);
+                  D("scroll", r);
             }
           }
           switch (t) {
@@ -6686,33 +6686,33 @@ function fd(e, n, t) {
           e: {
             switch (((o = lu(t, r)), t)) {
               case "dialog":
-                M("cancel", e), M("close", e), (l = r);
+                D("cancel", e), D("close", e), (l = r);
                 break;
               case "iframe":
               case "object":
               case "embed":
-                M("load", e), (l = r);
+                D("load", e), (l = r);
                 break;
               case "video":
               case "audio":
                 for (l = 0; l < St.length; l++) {
-                  M(St[l], e);
+                  D(St[l], e);
                 }
                 l = r;
                 break;
               case "source":
-                M("error", e), (l = r);
+                D("error", e), (l = r);
                 break;
               case "img":
               case "image":
               case "link":
-                M("error", e), M("load", e), (l = r);
+                D("error", e), D("load", e), (l = r);
                 break;
               case "details":
-                M("toggle", e), (l = r);
+                D("toggle", e), (l = r);
                 break;
               case "input":
-                Ao(e, r), (l = ql(e, r)), M("invalid", e);
+                Ao(e, r), (l = ql(e, r)), D("invalid", e);
                 break;
               case "option":
                 l = r;
@@ -6720,10 +6720,10 @@ function fd(e, n, t) {
               case "select":
                 (e._wrapperState = { wasMultiple: !!r.multiple }),
                   (l = A({}, r, { value: void 0 })),
-                  M("invalid", e);
+                  D("invalid", e);
                 break;
               case "textarea":
-                Ho(e, r), (l = nu(e, r)), M("invalid", e);
+                Ho(e, r), (l = nu(e, r)), D("invalid", e);
                 break;
               default:
                 l = r;
@@ -6744,7 +6744,7 @@ function fd(e, n, t) {
                     u !== "suppressHydrationWarning" &&
                     u !== "autoFocus" &&
                     (Rt.hasOwnProperty(u)
-                      ? s != null && u === "onScroll" && M("scroll", e)
+                      ? s != null && u === "onScroll" && D("scroll", e)
                       : s != null && Qu(e, u, s, o));
               }
             }
@@ -6926,7 +6926,7 @@ function fd(e, n, t) {
                               })),
                     (t = t.sibling);
                 }
-                return j($, ($.current & 1) | 2), n.child;
+                return M($, ($.current & 1) | 2), n.child;
               }
               e = e.sibling;
             }
@@ -6967,7 +6967,7 @@ function fd(e, n, t) {
           (u.renderingStartTime = Q()),
           (n.sibling = null),
           (t = $.current),
-          j($, r ? (t & 1) | 2 : t & 1),
+          M($, r ? (t & 1) | 2 : t & 1),
           n)
         : (te(n), null);
     case 22:
@@ -8970,7 +8970,7 @@ Ja = function (e, n, t) {
           (l = n.pendingProps),
           (u = n.memoizedProps),
           (o = l.value),
-          j(Hr, r._currentValue),
+          M(Hr, r._currentValue),
           (r._currentValue = o),
           u !== null)
         ) {
@@ -9744,18 +9744,18 @@ var Od = ts.exports,
   Hi = Od;
 (Kl.createRoot = Hi.createRoot), (Kl.hydrateRoot = Hi.hydrateRoot);
 function el({ title: e }) {
-  return D.jsxs("div", {
+  return j.jsxs("div", {
     className:
       "w-[80px] flex justify-between bg-[rgb(59,59,57)] p-[2px] pl-[4px] pr-[4px] rounded-md",
     children: [
-      D.jsx("div", { children: "-" }),
-      D.jsx("input", {
+      j.jsx("div", { children: "-" }),
+      j.jsx("input", {
         className: "w-[40px] text-center",
         maxLength: 3,
         type: "text",
       }),
-      D.jsx("div", { children: "+" }),
-      D.jsx("div", {
+      j.jsx("div", { children: "+" }),
+      j.jsx("div", {
         className: "absolute top-[30px] left-[20px] text-gray-400",
         children: e,
       }),
@@ -9763,72 +9763,75 @@ function el({ title: e }) {
   });
 }
 function jd() {
-  return D.jsx("div", {
+  return j.jsx("div", {
     className: "w-[196px] h-[80px] flex justify-center items-center",
-    children: D.jsxs("div", {
+    children: j.jsxs("div", {
       className:
         "w-[150px] h-[60px] rounded-md border-[1px] border-neutral-400 relative",
       children: [
-        D.jsx("div", {
+        j.jsx("div", {
           className: "absolute top-[-12px] left-[32px]",
-          children: D.jsx(el, {}),
+          children: j.jsx(el, {}),
         }),
-        D.jsx("div", {
+        j.jsx("div", {
           className: "absolute top-[45px] left-[32px]",
-          children: D.jsx(el, {}),
+          children: j.jsx(el, {}),
         }),
       ],
     }),
   });
 }
 function Wi({ title: e, element: n }) {
-  return D.jsxs("div", {
+  return j.jsxs("div", {
     className:
       "text-sm w-[100%] h-[90px] p-[15px] flex justify-between items-center",
     children: [
       e,
-      D.jsx("div", {
+      j.jsx("div", {
         className: "w-[80%] flex justify-between",
         children: n.map((t) =>
-          D.jsx("div", { className: "relative", children: t })
+          j.jsx("div", { className: "relative", children: t })
         ),
       }),
     ],
   });
 }
 function Md() {
-  const [e, n] = Tt.useState({ frame: "" });
-  return (
-    Tt.useEffect(() => {
-      window.addEventListener("message", (t) => {
-        const r = t.data;
-        n({ frame: r });
-      });
-    }, []),
-    D.jsx("div", {
-      className: "w-[300px] h-[100vh] bg-[rgb(38,38,36)]",
-      children: D.jsxs("div", {
-        className:
-          "pl-[15px] w-[100%] p-[10px] h-[220px] border-b-[1px] border-zinc-700",
-        children: [
-          D.jsx("div", {
-            className: "font-bold text-neutral-400",
-            children: "Frame",
-          }),
-          D.jsx(Wi, {
-            title: "Size",
-            element: [
-              D.jsx(el, { title: "width" }),
-              D.jsx(el, { title: "height" }),
-            ],
-          }),
-          D.jsx(Wi, { title: "Border", element: [D.jsx(jd, {})] }),
-          D.jsx("div", { children: e.frame }),
-        ],
-      }),
-    })
-  );
+  const [e, n] = Tt.useState({ frame: "" }),
+    t = acquireVsCodeApi();
+  Tt.useEffect(() => {
+    window.addEventListener("message", (l) => {
+      const u = l.data;
+      n({ frame: u });
+    });
+  }, []);
+  const r = () => {
+    t.postMessage("from Editor");
+  };
+  return j.jsx("div", {
+    className: "w-[300px] h-[100vh] bg-[rgb(38,38,36)]",
+    children: j.jsxs("div", {
+      className:
+        "pl-[15px] w-[100%] p-[10px] h-[220px] border-b-[1px] border-zinc-700",
+      children: [
+        j.jsx("div", {
+          className: "font-bold text-neutral-400",
+          children: "Frame",
+        }),
+        j.jsx(Wi, {
+          title: "Size",
+          element: [
+            j.jsx(el, { title: "width" }),
+            j.jsx(el, { title: "height" }),
+          ],
+        }),
+        j.jsx(Wi, { title: "Border", element: [j.jsx(jd, {})] }),
+        j.jsx("button", { onClick: r, children: "发送信息" }),
+        j.jsx("div", { children: e.frame }),
+      ],
+    }),
+  });
 }
 Kl.createRoot(document.getElementById("root")).render(
-  D.jsx(Sc.StrictMode, { children: D.jsx(Md, {}) })
+  j.jsx(Sc.StrictMode, { children: j.jsx(Md, {}) })
 );

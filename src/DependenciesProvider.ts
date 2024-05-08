@@ -54,6 +54,12 @@ class DependenciesProvider implements vscode.WebviewViewProvider {
     </body>
   </html>
       `;
+
+    webviewView.webview.onDidReceiveMessage((message) => {
+      const editor = vscode.window.activeTextEditor;
+      console.log(editor);
+      console.log(message);
+    });
   }
 }
 
