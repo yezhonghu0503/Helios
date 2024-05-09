@@ -10,6 +10,7 @@ export function getClassFromPosition(
   if (!classRegExp.test(currentLineText)) {
     return null;
   }
+  console.log(currentLine);
   let styleString = currentLineText.slice(currentLineText.indexOf('"') + 1);
   styleString = ~styleString.indexOf('"')
     ? styleString.slice(0, styleString.indexOf('"'))

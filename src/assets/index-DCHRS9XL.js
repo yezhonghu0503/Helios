@@ -9781,6 +9781,7 @@ function jd() {
     }),
   });
 }
+const Md = acquireVsCodeApi();
 function Wi({ title: e, element: n }) {
   return j.jsxs("div", {
     className:
@@ -9796,17 +9797,16 @@ function Wi({ title: e, element: n }) {
     ],
   });
 }
-function Md() {
-  const [e, n] = Tt.useState({ frame: "" }),
-    t = acquireVsCodeApi();
+function Dd() {
+  const [e, n] = Tt.useState({ frame: "" });
   Tt.useEffect(() => {
-    window.addEventListener("message", (l) => {
-      const u = l.data;
-      n({ frame: u });
+    window.addEventListener("message", (r) => {
+      const l = r.data;
+      n({ frame: l });
     });
   }, []);
-  const r = () => {
-    t.postMessage("from Editor");
+  const t = () => {
+    Md.postMessage("from Editor");
   };
   return j.jsx("div", {
     className: "w-[300px] h-[100vh] bg-[rgb(38,38,36)]",
@@ -9826,12 +9826,12 @@ function Md() {
           ],
         }),
         j.jsx(Wi, { title: "Border", element: [j.jsx(jd, {})] }),
-        j.jsx("button", { onClick: r, children: "发送信息" }),
+        j.jsx("button", { onClick: t, children: "发送信息" }),
         j.jsx("div", { children: e.frame }),
       ],
     }),
   });
 }
 Kl.createRoot(document.getElementById("root")).render(
-  j.jsx(Sc.StrictMode, { children: j.jsx(Md, {}) })
+  j.jsx(Sc.StrictMode, { children: j.jsx(Dd, {}) })
 );

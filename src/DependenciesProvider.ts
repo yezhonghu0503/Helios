@@ -57,6 +57,12 @@ class DependenciesProvider implements vscode.WebviewViewProvider {
 
     webviewView.webview.onDidReceiveMessage((message) => {
       const editor = vscode.window.activeTextEditor;
+      const range = new vscode.Range(11, 16, 14, 5);
+      if (editor) {
+        editor.edit((editBuilder) => {
+          editBuilder.replace(range, "w-[100px] h-[100px] mt-2");
+        });
+      }
       console.log(editor);
       console.log(message);
     });
